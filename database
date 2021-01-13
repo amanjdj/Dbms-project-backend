@@ -1,0 +1,45 @@
+create database if not exists eauction default character set utf8 collate utf8_general_ci;
+use eauction;
+
+create table if not exists accounts(
+id int(10) not null auto_increment primary key,
+name varchar(50) not null,
+password varchar(50) not null,
+email varchar(100) not null,
+usertype varchar(1),
+address varchar(100) not null
+) engine=InnoDB auto_increment=1 default charset=utf8;
+
+
+create table if not exists items(
+id int(10) not null auto_increment primary key,
+name varchar(50) not null,
+imageUrl varchar(1000) not null,
+detail varchar(500) not null,
+amount int(10),
+datelimit date not null,
+datetoday date,
+itemstatus varchar(20) not null,
+seller int(10) not null,
+customer int(10),
+foreign key(seller) references accounts(id),
+foreign key(customer) references accounts(id)
+) engine=InnoDB auto_increment=1 default charset=utf8;
+
+create table if not exists currentsession(
+id int(10),
+named varchar(50),
+foreign key(id) references accounts(id)
+) engine=InnoDB auto_increment=1 default charset=utf8;
+
+create table if not exists rating(
+id int(10),
+rate int (1),
+foreign key(id) references items(id)
+)engine=InnoDB auto_increment=1 default charset=utf8;
+
+create table if not exists manageraccount(
+email varchar(50),
+password varchar(50)
+)engine=InnoDB auto_increment=1 default charset=utf8;
+
